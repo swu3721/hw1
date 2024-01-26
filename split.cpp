@@ -28,12 +28,14 @@ if (in == nullptr) {
 //Making a new variable for the next value in linked list
 Node* nextVal = in->next;
 
+//To iterate through evens and odds when needed
 Node* evensVal = evens;
 Node* oddsVal = odds;
 
 if (in->value % 2 == 0) { //in node is even 
 
   if (evens == nullptr){ //If the list is empty
+    //Change the head to in and next to nullptr
     evens = in;
     evens->next = nullptr;
 
@@ -41,31 +43,27 @@ if (in->value % 2 == 0) { //in node is even
     in = nullptr;
     //Recursive call with updated in pointer
     split(nextVal, odds, evens);
-  } else if (evensVal == nullptr) { //If evensVal is not the last item in the list
+  } else if (evensVal == nullptr) { //If evensVal is the last item in evens
+    //Change evensVal to in
     evensVal = in;
+    //Set next to nullptr
     evensVal->next = nullptr;
     
+    //Set what was just looked at to null
     in = nullptr;
+    //Recursive call with updated in pointer
     split(nextVal, odds, evens);
     
-    //Navigating to proper spot in evens
-    //while (evensVal->next != nullptr){
-      //evensVal = evensVal->next;
-    //}
-    //split(in, odds, evens->next);
-
-    //Add in node to even list
-    //evensVal->next = in;
-    //Necessary?
-    //evensVal->next->next = nullptr;
-  } else {
+  } else { //If evensVal is not at the end yet
+    //Split call to iterate evensVal through evens
     split(in, odds, evensVal->next);
   }
   
-} else if (in->value % 2 == 1) { //Assume it can only be even or odd
+} else if (in->value % 2 == 1) { //Odd
   
   //If odds is empty
   if (odds == nullptr){
+    //Change the head to in and next to nullptr
     odds = in;
     odds->next = nullptr;
     //Set what was just looked at to null
@@ -73,31 +71,21 @@ if (in->value % 2 == 0) { //in node is even
     //Recursive call with updated in pointer
     split(nextVal, odds, evens);
   } else if (oddsVal == nullptr) { 
+    //Set oddsVal to in and next to nullptr
     oddsVal = in;
     oddsVal->next = nullptr;
-    
-    //Navigating to proper place in odds
-    //while (oddsVal->next != nullptr){
-      //oddsVal = oddsVal->next;
-    //}
-    //split(in, odds->next, evens);
-    //Odd
-    //oddsVal->next = in;
-    //oddsVal->next->next = nullptr;
+
+    //Set what was just looked at to null
     in = nullptr;
+    //Recursive call with updated in pointer
     split(nextVal, odds, evens);
-  } else {
+  } else { //If oddsVal is not at end iterate through
     split(in, oddsVal->next, evens);
   }
   
   
-  
 }
 
-//Set what was just looked at to null
-//in = nullptr;
-//Recursive call with updated in pointer
-//split(nextVal, odds, evens);
 }
 
 /* If you needed a helper function, write it here */
