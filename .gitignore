@@ -2,3 +2,6 @@ grade_split
 grade_ulliststr
 test_split
 test_ulliststr
+*.o
+*.exe
+*.vscode
